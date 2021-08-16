@@ -53,9 +53,14 @@ bool isEmpty()
     }
 }
 
-int main()
+char peek()
 {
-    string brac="(()))";
+    return head->data;
+}
+
+bool check(string brac)
+{
+    char x;
 
     for(int i=0;brac[i]!='\0';i++)
     {
@@ -63,22 +68,54 @@ int main()
         {
             push(brac[i]);
         }
-    }
 
-    
-    for(int i=0;brac[i]!='\0';i++)
-    {
-        if(brac[i]=='}' || brac[i]==')' || brac[i]==']') //pop all the matching brackets.
+        switch(brac[i])
         {
-            pop();
+            case ']':
+                 x=peek();
+                pop();
+                if(x=='{' || x=='(')
+                    return false;
+                    break;
+            
+            case '}':
+                 x=peek();
+                pop();
+                if(x=='[' || x=='(')
+                    return false;
+                    break;
+            
+            case ')':
+                  x=peek();
+                pop();
+                if(x=='{' || x=='[')
+                    return false;
+                    break;
         }
     }
 
-    if(isEmpty()) //if stack is empty then return true else false
+    res=isEmpty();
+
+    if(res)
     {
-        cout<<"True"<<endl;
+        return true;
     }else{
-        cout<<"False"<<endl;
+        return false;
+    }
+
+
+}
+
+int main()
+{
+    string brac="{()}";
+    char x;
+
+    if(check(brac))
+    {
+        cout<<"true";
+    }else{
+        cout<<"false";
     }
 
     return 0;
