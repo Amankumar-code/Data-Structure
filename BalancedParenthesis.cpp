@@ -11,7 +11,6 @@ struct node
 
 //global variables
 struct node *head=NULL;
-bool res;
 
 void push(char brac)
 {
@@ -67,6 +66,12 @@ bool check(string brac)
         if(brac[i]=='{' || brac[i]=='(' || brac[i]=='[') //inserting all the opening brackets in stack
         {
             push(brac[i]);
+            continue;
+        }
+
+        if(isEmpty())
+        {
+            return false;
         }
 
         switch(brac[i])
@@ -94,21 +99,14 @@ bool check(string brac)
         }
     }
 
-    res=isEmpty();
-
-    if(res)
-    {
-        return true;
-    }else{
-        return false;
-    }
+    return isEmpty();
 
 
 }
 
 int main()
 {
-    string brac="{()}";
+    string brac="{}{}()[][]()";
     char x;
 
     if(check(brac))
